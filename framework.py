@@ -1,5 +1,8 @@
 import oauth2 as oauth
 from config import CONFIG
+from pprint import pprint
+import json
+
 
 class TwitterFW:
 	def __init__(self):
@@ -17,7 +20,10 @@ class TwitterFW:
 			url = url + '?'
 			for key in get_params.iterkeys():
 				url += key + "=" + get_params.get(key) + "&"
-		print url
+		# print url
 		return self.client.request(url , 
-					method="GET", 
-		)
+					method="GET",
+					)
+t = TwitterFW()
+resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" , {'q':"@twitterapi"})
+pprint(json.loads(content))
