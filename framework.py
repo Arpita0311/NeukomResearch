@@ -24,6 +24,17 @@ class TwitterFW:
 		return self.client.request(url , 
 					method="GET",
 					)
-t = TwitterFW()
-resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" , {'q':"@twitterapi"})
-pprint(json.loads(content))
+					
+# t = TwitterFW()
+# resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" ,
+# 						{'geocode':"40.717728,-74.0021647,100mi"})
+# x = json.loads(content)
+#
+# pprint(x)
+#
+# out_file = open("test.json","w")
+# json.dump(content,out_file, indent = 4)
+# out_file.close()
+#
+# pprint(json.loads(content['statuses'
+# ]))
