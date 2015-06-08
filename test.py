@@ -42,11 +42,12 @@ with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
 			lat_lng = content['statuses'][x].get('coordinates',None)
 			if lat_lng :
 				lat_lng = lat_lng.get('coordinates')
-				lat_lng_str = str(lat_lng[0]) + ',' + str(lat_lng[1])
+				lat_lng_str = str(lat_lng[0]) + '-' + str(lat_lng[1])
 			else :
 				lat_lng_str = ''
-				
-			s = [content['statuses'][x]['id'],
+			
+			s = [
+			content['statuses'][x]['id'],
 			content['statuses'][x]['user']['id'] ,
 			lat_lng_str,
 			content['statuses'][x]['user']['friends_count'],
@@ -54,14 +55,14 @@ with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
 			content['statuses'][x]['user']['geo_enabled'],
 			content['statuses'][x]['user']['screen_name'],
 			content['statuses'][x]['user']['name'],
+			]
+			# print s
+			# for i in range(0 , len(s)):
+				# s[i] = unicode(s[i]).encode("utf-8")
 			
-		]
-			
-			
-			
-				
+			# print s
 			f.writerow([unicode(s).encode("utf-8")])
-			
+			# f.writerow(s)
 			# unicode(content['statuses'][x]['user']['screen_name']).replace("\/","/"),
 			# unicode(content['statuses'][x]['user']['name'] , errors='ignore'),
 			# str(content['statuses'][x]['geo']['coordinates'][0]) + ',' + str(content['statuses'][x]['geo']['coordinates'][1]),
