@@ -24,7 +24,7 @@ class TwitterFW:
 		return self.client.request(url , 
 					method="GET",
 					)
-					
+
 # t = TwitterFW()
 # resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" ,
 # 						{'geocode':"40.717728,-74.0021647,100mi"})
