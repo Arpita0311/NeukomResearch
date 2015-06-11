@@ -32,7 +32,7 @@ with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
 
 		# printing the contents
 	
-		# pprint(json.loads(content))
+		pprint(json.loads(content))
 		content = unicode(content,"utf-8")
 		content = json.loads(content)
 		# for tweet in content['statuses'] :
