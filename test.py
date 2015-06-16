@@ -8,14 +8,18 @@ def fetch_tweets_till_date() :
 	min_id = None
 	with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
 		f = csv.writer(fp , delimiter=',')
-		f.writerow (["tweet ID","user ID","tweet coordinates",
+		f.writerow (["Tweet ID","user ID","lat" , "lng",
 					"friend_Count","location","geo_enabled",
-					"Screen name","user name"])
+					"Screen name","user name","users_followers_count" ,
+					"users_friends_count" ,
+					"users_favourites_count" , "user_statuses_count" , "users_geo_enabled" ,
+					"user_profile_background_image_url" ,
+					"user_profile_image_url"])
 		t = TwitterFW()
 		url ="https://api.twitter.com/1.1/search/tweets.json"
 	
 		geocode = "40.717728,-74.0021647,100mi"
-		until = "2014-09-01"
+		until = "2015-09-01"
 	
 		while (i < 10):
 			if (min_id == None):
@@ -43,24 +47,37 @@ def fetch_tweets_till_date() :
 			
 			# for tweet in content['statuses'] :
 			# 	print "Tweet id is " + str(tweet['id']) + " by " + str(tweet['user']['screen_name'])
-		
+
 			for x in range(0 , len(content['statuses'])):
 				lat_lng = content['statuses'][x].get('coordinates',None)
 				if lat_lng :
 					lat_lng = lat_lng.get('coordinates')
-					lat_lng_str = str(lat_lng[0]) + '-' + str(lat_lng[1])
+					# lat_lng_str = str(lat_lng[0]) + '-' + str(lat_lng[1])
+					lat_str = str(lat_lng[0])
+					lng_str = str(lat_lng[1])
 				else :
-					lat_lng_str = ''
-			
+					# lat_lng_str = ''
+					lat_str = ''
+					lng_str = ''
+
 				s = [
 				content['statuses'][x]['id'],
 				content['statuses'][x]['user']['id'] ,
-				lat_lng_str,
+				lat_str,
+				lng_str,
 				content['statuses'][x]['user']['friends_count'],
 				content['statuses'][x]['user']['location'].encode("ascii" , "ignore"),
 				content['statuses'][x]['user']['geo_enabled'],
 				content['statuses'][x]['user']['screen_name'].encode("ascii" , "ignore"),
 				content['statuses'][x]['user']['name'].encode("ascii" , "ignore"),
+				content['statuses'][x]['user']['followers_count'],
+				content['statuses'][x]['user']['friends_count'],
+				content['statuses'][x]['user']['favourites_count'],
+				content['statuses'][x]['user']['statuses_count'],
+				content['statuses'][x]['user']['geo_enabled'],
+				content['statuses'][x]['user']['profile_background_image_url'].encode("ascii" , "ignore"),
+				content['statuses'][x]['user']['profile_image_url'].encode("ascii" , "ignore"),
+				
 				]
 				# print s
 				# for i in range(0 , len(s)):

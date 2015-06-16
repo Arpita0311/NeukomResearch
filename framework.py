@@ -25,6 +25,9 @@ class TwitterFW:
 					method="GET",
 					)
 
+def sanitize_string(s):
+	s = s.encode("ascii" , "ignore")
+
 # t = TwitterFW()
 # resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" ,
 # 						{'geocode':"40.717728,-74.0021647,100mi"})
