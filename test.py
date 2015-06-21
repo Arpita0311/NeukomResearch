@@ -19,18 +19,8 @@ def fetch_tweets_till_date() :
 					"place_coordinate_lng_D","place_country",
 					"place_full_name", "place_type"])
 					
-		t = TwitterFW()
-		url ="https://api.twitter.com/1.1/search/tweets.json"
-	
-		geocode = "40.717728,-74.0021647,500mi"
 
-		f.writerow (["Tweet ID","user ID","lat" , "lng",
-					"friend_Count","location","geo_enabled",
-					"Screen name","user name","users_followers_count" ,
-					"users_friends_count" ,
-					"users_favourites_count" , "user_statuses_count" , "users_geo_enabled" ,
-					"user_profile_background_image_url" ,
-					"user_profile_image_url"])
+		
 		t = TwitterFW()
 		url ="https://api.twitter.com/1.1/search/tweets.json"
 	
@@ -81,9 +71,9 @@ def fetch_tweets_till_date() :
 					lng1_str = ''
 					
 					
-				lat_lng2 = content['statuses'][x]['place']['bounding_box']['coordinates'].get('coordinates',None)
+				lat_lng2 = content['statuses'][x]['place']['bounding_box']['coordinates']
 				if lat_lng2 :
-					lat_lng2 = lat_lng2.get('coordinates')
+					# lat_lng2 = lat_lng2.get('coordinates')
 					latA_str = str(lat_lng2[0][0])
 					lngA_str = str(lat_lng2[0][1])
 					latB_str = str(lat_lng2[1][0])
@@ -106,37 +96,9 @@ def fetch_tweets_till_date() :
 
 				s = [
 				content['statuses'][x]['id'],
-				content['statuses'][x]['created_at'],
-				content['statuses'][x]['favorite_count'],
-				lat_str,
-				lng_str,
-				content['statuses'][x]['lang'],
-				content['statuses'][x]['retweet_count'],
-				content['statuses'][x]['retweeted'],
-				content['statuses'][x]['source'],
-				content['statuses'][x]['text'],
-				content['statuses'][x]['user']['contributors_enabled'] ,
-				content['statuses'][x]['user']['created_at'],
-				content['statuses'][x]['user']['description'],
-				content['statuses'][x]['user']['id'],
-
-				lat_lng = content['statuses'][x].get('coordinates',None)
-				if lat_lng :
-					lat_lng = lat_lng.get('coordinates')
-					# lat_lng_str = str(lat_lng[0]) + '-' + str(lat_lng[1])
-					lat_str = str(lat_lng[0])
-					lng_str = str(lat_lng[1])
-				else :
-					# lat_lng_str = ''
-					lat_str = ''
-					lng_str = ''
-
-				s = [
-				content['statuses'][x]['id'],
 				content['statuses'][x]['user']['id'] ,
 				lat_str,
 				lng_str,
-
 				content['statuses'][x]['user']['friends_count'],
 				content['statuses'][x]['user']['time_zone'],
 				content['statuses'][x]['user']['location'].encode("ascii" , "ignore"),
@@ -161,7 +123,6 @@ def fetch_tweets_till_date() :
 				content['statuses'][x]['place']['country'],
 				content['statuses'][x]['place']['full_name'],
 				content['statuses'][x]['place']['place_type'],
-
 				content['statuses'][x]['user']['geo_enabled'],
 				content['statuses'][x]['user']['profile_background_image_url'].encode("ascii" , "ignore"),
 				content['statuses'][x]['user']['profile_image_url'].encode("ascii" , "ignore"),
