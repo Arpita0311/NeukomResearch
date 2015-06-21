@@ -8,7 +8,7 @@ def fetch_tweets_till_date() :
 	min_id = None
 	with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
 		f = csv.writer(fp , delimiter=',')
-<<<<<<< HEAD
+
 		f.writerow (["tweet_Id","Tweet_created_at","tweet_favorite_count","tweet_latitude" , "tweet_longitude",
 					"tweet_language","tweet_retweet_count","tweet_retweeted","tweet_source","tweet_text",
 					"user_contributors_enabled", "user_created_at","user_description", "user_Id","user_friend_count", 
@@ -23,7 +23,7 @@ def fetch_tweets_till_date() :
 		url ="https://api.twitter.com/1.1/search/tweets.json"
 	
 		geocode = "40.717728,-74.0021647,500mi"
-=======
+
 		f.writerow (["Tweet ID","user ID","lat" , "lng",
 					"friend_Count","location","geo_enabled",
 					"Screen name","user name","users_followers_count" ,
@@ -35,7 +35,7 @@ def fetch_tweets_till_date() :
 		url ="https://api.twitter.com/1.1/search/tweets.json"
 	
 		geocode = "40.717728,-74.0021647,100mi"
->>>>>>> 5237e879c7769249926b9e2ea7def689db40541c
+
 		until = "2015-09-01"
 	
 		while (i < 10):
@@ -68,7 +68,7 @@ def fetch_tweets_till_date() :
 			# 	print "Tweet id is " + str(tweet['id']) + " by " + str(tweet['user']['screen_name'])
 
 			for x in range(0 , len(content['statuses'])):
-<<<<<<< HEAD
+
 				lat_lng1 = content['statuses'][x].get('coordinates',None)
 				if lat_lng1 :
 					lat_lng1 = lat_lng1.get('coordinates')
@@ -119,7 +119,7 @@ def fetch_tweets_till_date() :
 				content['statuses'][x]['user']['created_at'],
 				content['statuses'][x]['user']['description'],
 				content['statuses'][x]['user']['id'],
-=======
+
 				lat_lng = content['statuses'][x].get('coordinates',None)
 				if lat_lng :
 					lat_lng = lat_lng.get('coordinates')
@@ -136,7 +136,7 @@ def fetch_tweets_till_date() :
 				content['statuses'][x]['user']['id'] ,
 				lat_str,
 				lng_str,
->>>>>>> 5237e879c7769249926b9e2ea7def689db40541c
+
 				content['statuses'][x]['user']['friends_count'],
 				content['statuses'][x]['user']['time_zone'],
 				content['statuses'][x]['user']['location'].encode("ascii" , "ignore"),
@@ -147,7 +147,6 @@ def fetch_tweets_till_date() :
 				content['statuses'][x]['user']['friends_count'],
 				content['statuses'][x]['user']['favourites_count'],
 				content['statuses'][x]['user']['statuses_count'],
-<<<<<<< HEAD
 				content['statuses'][x]['user']['lang'],
 				content['statuses'][x]['user']['profile_background_image_url'].encode("ascii" , "ignore"),
 				content['statuses'][x]['user']['profile_image_url'].encode("ascii" , "ignore"),
@@ -162,12 +161,12 @@ def fetch_tweets_till_date() :
 				content['statuses'][x]['place']['country'],
 				content['statuses'][x]['place']['full_name'],
 				content['statuses'][x]['place']['place_type'],
-=======
+
 				content['statuses'][x]['user']['geo_enabled'],
 				content['statuses'][x]['user']['profile_background_image_url'].encode("ascii" , "ignore"),
 				content['statuses'][x]['user']['profile_image_url'].encode("ascii" , "ignore"),
 				
->>>>>>> 5237e879c7769249926b9e2ea7def689db40541c
+
 				]
 				# print s
 				# for i in range(0 , len(s)):
