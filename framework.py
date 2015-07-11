@@ -2,7 +2,8 @@ import oauth2 as oauth
 from config import CONFIG
 from pprint import pprint
 import json
-
+from datetime import datetime
+import time
 
 class TwitterFW:
 	def __init__(self):
@@ -28,6 +29,9 @@ class TwitterFW:
 def sanitize_string(s):
 	s = s.encode("ascii" , "ignore")
 
+def twitter_date_to_timestamp(date):
+	return time.mktime(datetime.strptime(date , "%a %b %d %H:%M:%S +0000 %Y").timetuple())
+	
 # t = TwitterFW()
 # resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" ,
 # 						{'geocode':"40.717728,-74.0021647,100mi"})
