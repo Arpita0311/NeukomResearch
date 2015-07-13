@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<style type="text/css">
+	  html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+	</style>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD41e0YEB2X4m7to8frTrxigzzaSMHi95g">
+	</script>
+	<script src="data.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	
+	function bindInfoWindow(marker, map, infowindow, description) {
+	    google.maps.event.addListener(marker, 'click', function() {
+	        infowindow.setContent(description);
+	        infowindow.open(map, marker);
+	    });
+	}
+
+	function initialize() {
+		var mapOptions = {
+			center: { lat: 42.3625378, lng: -71.0645577},
+			zoom: 8
+		};
+		var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+		
+		for (var i =0; i < results.length ; i++) {
+			var position = new google.maps.LatLng(results[i].tweet_latitude,results[i].tweet_longitude);
+			// var contentString = results[i];
+			// console.log(JSON.stringify(results[i] , null ,1));
+			var infowindow = new google.maps.InfoWindow({
+				content: '<div id="content"><pre>' + JSON.stringify(results[i] , null ,1) + '</pre></div>'
+			});
+			var marker = new google.maps.Marker({
+				position: position,
+				map: map,
+				title:results[i].title
+			});
+			
+			bindInfoWindow(
+				marker,
+				map,
+				infowindow,
+				'<div id="content"><pre>' + JSON.stringify(results[i] , null ,1) + '</pre></div>'
+			);
+		}
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+	</head>
+	<body>
+		<div id="map-canvas"></div>
+	</body>
+</html>

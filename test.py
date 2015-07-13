@@ -27,7 +27,7 @@ def fetch_tweets_till_date() :
 	
 		geocode = "40.717728,-74.0021647,500mi"
 
-		until = "2015-07-07"
+		until = "2015-07-11"
 		prev_time = None
 		
 		while (1):
@@ -127,8 +127,8 @@ def fetch_tweets_till_date() :
 					content['statuses'][x]['id'],
 					content['statuses'][x]['created_at'],
 					content['statuses'][x]['favorite_count'] ,
-					lat1_str,
-					lng1_str,
+					lng1_str, # reverse lat and long
+					lat1_str, # reverse lat and long
 					content['statuses'][x]['lang'],
 					content['statuses'][x]['retweet_count'],
 					content['statuses'][x]['retweeted'],
