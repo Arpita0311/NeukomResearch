@@ -165,9 +165,7 @@ def fetch_tweets_till_date() :
 					]
 					# for i in range(0 , len(s)):
 						# s[i] = unicode(s[i]).encode("utf-8")
-			
 					#print s
-				
 					f.writerow(s)
 					
 				except Exception as e:
