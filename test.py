@@ -2,7 +2,7 @@ from framework import *
 import csv,codecs, unicodedata
 import sys, os
 
-MAX_TIME_PASSED = 60*30 # 30 minutes
+MAX_TIME_PASSED = float(60*60) # 15 minutes
 
 def fetch_tweets_till_date() :
 	
@@ -27,7 +27,7 @@ def fetch_tweets_till_date() :
 	
 		geocode = "40.717728,-74.0021647,500mi"
 
-		until = "2015-07-11"
+		until = "2015-07-14"
 		prev_time = None
 		
 		while (1):
@@ -44,7 +44,7 @@ def fetch_tweets_till_date() :
 										url , 
 										{'geocode' : geocode , 
 										'max_id' : str(min_id) ,
-										'until' : "2015-07-06"
+										'until' : "2015-07-14"
 										}
 									)
 			
@@ -67,9 +67,12 @@ def fetch_tweets_till_date() :
 					tweet_timestamp = twitter_date_to_timestamp(content['statuses'][x]['created_at'])
 					
 					if (prev_time is not None) :
-						if (tweet_timestamp - prev_time > MAX_TIME_PASSED) :
+						if ((prev_time - tweet_timestamp) > MAX_TIME_PASSED) :
+							print prev_time - tweet_timestamp
+							print "All tweets within the timeframe collected"
 							return
-					
+						else :
+							print prev_time - tweet_timestamp
 					else :
 						prev_time = tweet_timestamp
 					
@@ -181,6 +184,7 @@ def fetch_tweets_till_date() :
 			min_id = min_id -1
 
 			i+=1
+			# break;
 	fp.close()
 	
 fetch_tweets_till_date()
