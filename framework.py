@@ -2,8 +2,9 @@ import oauth2 as oauth
 from config import CONFIG
 from pprint import pprint
 import json
-from datetime import datetime
+from datetime import datetime , date
 import time
+import MySQLdb
 
 class TwitterFW:
 	def __init__(self):
@@ -31,7 +32,35 @@ def sanitize_string(s):
 
 def twitter_date_to_timestamp(date):
 	return time.mktime(datetime.strptime(date , "%a %b %d %H:%M:%S +0000 %Y").timetuple())
+
+class Model:
+	def __init__(self):
+		self.db = MySQLdb.connect(
+			host = CONFIG.get('db_host') ,
+			user = CONFIG.get('db_user') ,
+			passwd = CONFIG.get('db_password') ,
+			db = CONFIG.get('db_name')
+		)
+		self.cursor = self.db.cursor()
 	
+	def save_min_id(self , id):
+		statement = "INSERT INTO script_details(min_id) VALUES ('%s');" % id
+		self.cursor.execute(statement)
+		self.db.commit()
+	
+	def fetch_last_min_id(self):
+		statement = "SELECT min_id from script_details ORDER BY id DESC LIMIT 1;"
+		self.cursor.execute(statement)
+		r = self.cursor.fetchone()
+		if r:
+			return r[0]
+		else :
+			return None
+
+m = Model()
+m.save_min_id("23")
+# print m.fetch_last_date()
+
 # t = TwitterFW()
 # resp, content = t.get("https://api.twitter.com/1.1/search/tweets.json" ,
 # 						{'geocode':"40.717728,-74.0021647,100mi"})
