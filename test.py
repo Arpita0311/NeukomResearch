@@ -2,13 +2,13 @@ from framework import *
 import csv,codecs, unicodedata
 import sys, os
 
-MAX_TIME_PASSED = float(60*60) # 15 minutes
+MAX_TIME_PASSED = float(15*60) # 15 minutes
 
 def fetch_tweets_till_date() :
 	
 	i = 0
 	
-	min_id = None
+	min_id = 625806616802123776
 	with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
 		f = csv.writer(fp , delimiter=',')
 
@@ -26,8 +26,8 @@ def fetch_tweets_till_date() :
 		url ="https://api.twitter.com/1.1/search/tweets.json"
 	
 		geocode = "40.717728,-74.0021647,500mi"
-
-		until = "2015-07-14"
+		
+		until = "2015-07-28"
 		prev_time = None
 		
 		while (1):
@@ -43,8 +43,7 @@ def fetch_tweets_till_date() :
 				resp, content = t.get(
 										url , 
 										{'geocode' : geocode , 
-										'max_id' : str(min_id) ,
-										'until' : "2015-07-14"
+										'max_id' : str(min_id)
 										}
 									)
 			
@@ -71,8 +70,7 @@ def fetch_tweets_till_date() :
 							print prev_time - tweet_timestamp
 							print "All tweets within the timeframe collected"
 							return
-						else :
-							print prev_time - tweet_timestamp
+
 					else :
 						prev_time = tweet_timestamp
 					
@@ -170,9 +168,8 @@ def fetch_tweets_till_date() :
 						# s[i] = unicode(s[i]).encode("utf-8")
 			
 					#print s
-				
 					f.writerow(s)
-					
+				
 				except Exception as e:
 					exc_type, exc_obj, exc_tb = sys.exc_info()
 					print str(e) , exc_tb.tb_lineno
@@ -184,7 +181,6 @@ def fetch_tweets_till_date() :
 			min_id = min_id -1
 
 			i+=1
-			# break;
 	fp.close()
 	
 fetch_tweets_till_date()

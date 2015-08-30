@@ -57,8 +57,13 @@ class Model:
 		else :
 			return None
 
+	def fetch_all_tweets(self):
+		statement = "SELECT * FROM tweets where id>=65000;"
+		self.cursor.execute(statement)
+		return self.cursor.fetchall()
+
 m = Model()
-m.save_min_id("23")
+
 # print m.fetch_last_date()
 
 # t = TwitterFW()

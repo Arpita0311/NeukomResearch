@@ -1,15 +1,17 @@
 from framework import *
 import csv,codecs, unicodedata
 import sys, os
+import datetime
+import datetime
 
 MAX_TIME_PASSED = float(60*60) # 15 minutes
 
 def fetch_tweets_till_date() :
 	i = 0
 	m = Model()
-	
-	
-	with (codecs.open('test.csv' , 'w',encoding ='utf-8',errors='ignore')) as fp:
+	file_name = 'csv2/test_' + datetime.datetime.today().strftime("%m-%d-%Y") + "_" + datetime.datetime.now().time().isoformat() + '.csv'
+
+	with (codecs.open(file_name , 'w',encoding ='utf-8',errors='ignore')) as fp:
 		f = csv.writer(fp , delimiter=',')
 
 		f.writerow (["tweet_Id","Tweet_created_at","tweet_favorite_count","tweet_latitude" , "tweet_longitude",
@@ -21,17 +23,16 @@ def fetch_tweets_till_date() :
 					"place_coordinate_lat_B","place_coordinate_lng_B","place_coordinate_lat_C","place_coordinate_lng_C","place_coordinate_lat_D",
 					"place_coordinate_lng_D","place_country",
 					"place_full_name", "place_type"])
-		
+
 		t = TwitterFW()
 		url ="https://api.twitter.com/1.1/search/tweets.json"
 	
 		geocode = "40.717728,-74.0021647,500mi"
 	
-		until = "2015-07-14"
+		until = "2015-08-16"
 		prev_time = None
 		
 		while (1):
-			
 			min_id = m.fetch_last_min_id()
 			if (min_id == None):
 				resp, content = t.get(
@@ -46,7 +47,6 @@ def fetch_tweets_till_date() :
 										url , 
 										{'geocode' : geocode , 
 										'max_id' : str(min_id) ,
-										'until' : "2015-07-14"
 										}
 									)
 			
@@ -170,11 +170,8 @@ def fetch_tweets_till_date() :
 					]
 					# for i in range(0 , len(s)):
 						# s[i] = unicode(s[i]).encode("utf-8")
-			
 					#print s
-				
 					f.writerow(s)
-					
 				except Exception as e:
 					exc_type, exc_obj, exc_tb = sys.exc_info()
 					print str(e) , exc_tb.tb_lineno
@@ -183,10 +180,9 @@ def fetch_tweets_till_date() :
 			last_index = len(content['statuses']) -1
 			min_id = content['statuses'][last_index]['id']
 			max_id = content['statuses'][0]['id']
-			min_id = min_id -1
+			min_id = min_id - 1
 			m.save_min_id(min_id)
 			i+=1
-			# break;
 	fp.close()
 	
 fetch_tweets_till_date()
