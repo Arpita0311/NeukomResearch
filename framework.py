@@ -33,6 +33,10 @@ def sanitize_string(s):
 def twitter_date_to_timestamp(date):
 	return time.mktime(datetime.strptime(date , "%a %b %d %H:%M:%S +0000 %Y").timetuple())
 
+def twitter_date_to_datetime(date):
+	d = datetime.strptime(date , "%a %b %d %H:%M:%S +0000 %Y")
+	return datetime.strftime(d , "%Y-%m-%d %H:%M:%S")
+
 class Model:
 	def __init__(self):
 		self.db = MySQLdb.connect(
@@ -61,8 +65,20 @@ class Model:
 		statement = "SELECT * FROM tweets where id>=65000;"
 		self.cursor.execute(statement)
 		return self.cursor.fetchall()
+	
+	def save_times_for_tweets(self):
+		statement = "SELECT * FROM tweets;"
+		self.cursor.execute(statement)
+		rows = self.cursor.fetchall()
+		for row in rows:
+			statement = "update tweets set tweet_created_datetime='%s' where id='%s';" % (twitter_date_to_datetime(row[2]) , row[0])
+			self.cursor.execute(statement)
+			self.db.commit()
+			# print statement
+			# break
 
 m = Model()
+
 
 # print m.fetch_last_date()
 

@@ -3,6 +3,7 @@ import csv,codecs, unicodedata
 import sys, os
 import datetime
 import datetime
+from itertools import combinations
 
 MAX_TIME_PASSED = float(60*60) # 15 minutes
 
@@ -29,7 +30,7 @@ def fetch_tweets_till_date() :
 	
 		geocode = "40.717728,-74.0021647,500mi"
 	
-		until = "2015-08-16"
+		until = "2015-09-25"
 		prev_time = None
 		
 		while (1):
@@ -187,7 +188,7 @@ def fetch_tweets_till_date() :
 	
 fetch_tweets_till_date()
 
-#writing to json file	
+# writing to json file	
 # closing the file after writing the data to it
 # out_file = open("test.json","a")
 # json.dump(content,out_file, indent = 4)
